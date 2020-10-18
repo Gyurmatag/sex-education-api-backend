@@ -4,14 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js --exec \"node --preserve-symlinks -r dotenv/config\"",
+    "test": "NODE_ENV=mocha mocha --timeout=10000 --preserve-symlinks -r dotenv/config --recursive './{,!(node_modules)/**}/*.test.js'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://gyurmatag@bitbucket.org/gyurmaland/sex-education-api-backend.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Varga György Márk",
   "license": "ISC",
   "homepage": "https://bitbucket.org/gyurmaland/sex-education-api-backend#readme",
   "dependencies": {
