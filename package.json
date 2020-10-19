@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js --exec \"node --preserve-symlinks -r dotenv/config\"",
-    "test": "NODE_ENV=mocha mocha --timeout=10000 --preserve-symlinks -r dotenv/config --recursive './{,!(node_modules)/**}/*.test.js'"
+    "test": "set NODE_ENV=mocha&& mocha --timeout=10000 --preserve-symlinks -r dotenv/config --recursive \"./{,!(node_modules)/**}/*.test.js\""
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
     }
   },
   "lint-staged": {

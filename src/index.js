@@ -7,6 +7,7 @@ const mongoHost = new url.URL(config.MONGODB_URI).host
 const startServer = async function () {
   const mongooseOptions = {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
     promiseLibrary: global.Promise
   }
   try {
