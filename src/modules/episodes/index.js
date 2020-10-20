@@ -10,6 +10,7 @@ const typeDefs = gql`
       title: String!
       director: String!
       writer: String!
+      season: ID!
     ): Episode @isAuthenticated
   }
   
@@ -18,6 +19,7 @@ const typeDefs = gql`
     title: String!
     director: String!
     writer: String!
+    season: Season!
   }
 `
 const resolvers = require('./resolvers')

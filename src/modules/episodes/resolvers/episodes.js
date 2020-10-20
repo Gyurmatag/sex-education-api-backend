@@ -1,8 +1,8 @@
 const Episode = require('../../../models/episode')
 
 const episodes = async (_) => {
-  return await Episode
-    .find()
+  return Episode
+      .find().populate('season');
 }
 
 module.exports = episodes

@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
+
 const episodeSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -10,6 +12,11 @@ const episodeSchema = new mongoose.Schema({
   },
   writer: {
     type: String,
+    required: true
+  },
+  season: {
+    type: Schema.Types.ObjectId,
+    ref: 'Season',
     required: true
   }
 })
