@@ -1,24 +1,20 @@
 const expect = require('expect')
-const { request } = require('../../utils/test')
-const testUser = {
-    email: 'test-user@gmail.com',
-    password: 'test1234',
-    username: 'test',
-}
-const signup = ({ email, password, username }, returnValues = `{
+const {testUser, request, login} = require('../../utils/test')
+
+const signup = ({email, password, username}, returnValues = `{
   id
   email
 }`) => {
     return request({
         query: `
-      mutation {
-        signup(
-          email: "${email}",
-          password: "${password}",
-          username: "${username}",
-        ) ${returnValues}
-      }
-    `
+          mutation {
+            signup(
+              email: "${email}",
+              password: "${password}",
+              username: "${username}",
+            ) ${returnValues}
+          }
+        `
     })
 }
 describe('auth', () => {
@@ -51,19 +47,7 @@ describe('auth', () => {
     })
     describe('login', () => {
         it('should successfully login and return a token', () => {
-            return request({
-                query: `
-          mutation {
-            login(email:"${testUser.email}", password:"${testUser.password}") {
-              user {
-                id
-              }
-              token
-              tokenExpiration
-            }
-          }
-        `
-            })
+            return login(testUser)
                 .expect(res => {
                     expect(res.body).toHaveProperty('data.login.user.id')
                     expect(res.body).toHaveProperty('data.login.token')
@@ -75,19 +59,7 @@ describe('auth', () => {
     describe('me', () => {
         let loginResponse = null
         before(async () => {
-            await request({
-                query: `
-          mutation {
-            login(email:"${testUser.email}", password:"${testUser.password}") {
-              user {
-                id
-              }
-              token
-              tokenExpiration
-            }
-          }
-        `
-            })
+            await login(testUser)
                 .expect(res => {
                     expect(res.body).toHaveProperty('data.login.user.id')
                     expect(res.body).toHaveProperty('data.login.token')
@@ -99,14 +71,14 @@ describe('auth', () => {
         it('should not return a profile when not logged in', () => {
             return request({
                 query: `
-          query me {
-            me {
-              id
-              email
-              username
-            }
-          }
-        `
+                  query me {
+                    me {
+                      id
+                      email
+                      username
+                    }
+                  }
+                `
             })
                 .expect(res => {
                     expect(res.body).toHaveProperty('errors')
@@ -118,14 +90,14 @@ describe('auth', () => {
             const token = loginResponse.data.login.token
             return request({
                 query: `
-          query me {
-            me {
-              id
-              email
-              username
-            }
-          }
-        `
+                  query me {
+                    me {
+                      id
+                      email
+                      username
+                    }
+                  }
+                `
             })
                 .set('x-token', token)
                 .expect(res => {

@@ -8,6 +8,31 @@ const graphQLRequest = ({ query, variables = null }) => {
             query
         })
 }
+const testUser = {
+    email: 'test-user@gmail.com',
+    password: 'test1234',
+    username: 'test',
+}
+const login = ({ email, password }, returnValues = `{
+    user {
+      id
+    }
+    token
+    tokenExpiration
+}`) => {
+    return graphQLRequest({
+        query: `
+          mutation {
+            login(
+              email: "${email}",
+              password: "${password}",
+            ) ${returnValues}
+          }
+        `
+    })
+}
 module.exports = {
-    request: graphQLRequest
+    testUser,
+    request: graphQLRequest,
+    login
 }
