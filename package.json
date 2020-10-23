@@ -1,7 +1,7 @@
 {
   "name": "sex-education-api-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Backend API for querying data from the famous Netflix show: Sex Education",
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
