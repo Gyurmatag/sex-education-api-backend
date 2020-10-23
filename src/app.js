@@ -3,6 +3,8 @@ const { ApolloServer } = require('apollo-server-express')
 const context = require('./utils/context')
 const schema = require('./modules')
 const server = new ApolloServer({
+  introspection: true,
+  playground: true,
   schema,
   context: async ({ req }) => ({
     user: await context.getUser(req)
