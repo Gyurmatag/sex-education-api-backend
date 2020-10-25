@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express')
 const typeDefs = gql`
   extend type Query {
     character(id: ID!): Character
-    characters: [Character]
+    characters(skip: Int, limit: Int): [Character]
   }
   
    extend type Mutation {
