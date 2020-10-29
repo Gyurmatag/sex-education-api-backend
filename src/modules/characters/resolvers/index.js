@@ -3,13 +3,13 @@ const characters = require('./characters')
 const createCharacter = require('./create-character')
 
 const resolvers = {
-    Query: {
-        character,
-        characters
-    },
-    Mutation: {
-        createCharacter
-    }
+  Query: {
+    character,
+    characters
+  },
+  Mutation: {
+    createCharacter
+  }
 }
 
 module.exports = resolvers

@@ -16,7 +16,7 @@ const createEpisode = async (_, {
 
   await newEpisode.populate('season').execPopulate()
 
-  if(!newEpisode.season) {
+  if (!newEpisode.season) {
     throw new ApolloError('Not found')
   }
 

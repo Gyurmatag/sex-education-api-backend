@@ -1,17 +1,17 @@
 const request = require('supertest')
 const app = require('../app')
 const graphQLRequest = ({ query, variables = null }) => {
-    return request(app)
-        .post('/')
-        .send({
-            variables,
-            query
-        })
+  return request(app)
+    .post('/')
+    .send({
+      variables,
+      query
+    })
 }
 const testUser = {
-    email: 'test-user@gmail.com',
-    password: 'test1234',
-    username: 'test',
+  email: 'test-user@gmail.com',
+  password: 'test1234',
+  username: 'test'
 }
 const login = ({ email, password }, returnValues = `{
     user {
@@ -20,8 +20,8 @@ const login = ({ email, password }, returnValues = `{
     token
     tokenExpiration
 }`) => {
-    return graphQLRequest({
-        query: `
+  return graphQLRequest({
+    query: `
           mutation {
             login(
               email: "${email}",
@@ -29,10 +29,10 @@ const login = ({ email, password }, returnValues = `{
             ) ${returnValues}
           }
         `
-    })
+  })
 }
 module.exports = {
-    testUser,
-    request: graphQLRequest,
-    login
+  testUser,
+  request: graphQLRequest,
+  login
 }

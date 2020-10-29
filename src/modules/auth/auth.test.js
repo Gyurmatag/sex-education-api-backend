@@ -1,12 +1,12 @@
 const expect = require('expect')
-const {testUser, request, login} = require('../../utils/test')
+const { testUser, request, login } = require('../../utils/test')
 
-const signup = ({email, password, username}, returnValues = `{
+const signup = ({ email, password, username }, returnValues = `{
   id
   email
 }`) => {
-    return request({
-        query: `
+  return request({
+    query: `
           mutation {
             signup(
               email: "${email}",
@@ -15,62 +15,62 @@ const signup = ({email, password, username}, returnValues = `{
             ) ${returnValues}
           }
         `
-    })
+  })
 }
 describe('auth', () => {
-    describe('sign up', () => {
-        it('should create a new user', () => {
-            return signup(testUser)
-                .expect(res => {
-                    expect(res.body).toHaveProperty('data.signup.id')
-                    expect(res.body).toHaveProperty('data.signup.email', testUser.email)
-                })
-                .expect(200)
+  describe('sign up', () => {
+    it('should create a new user', () => {
+      return signup(testUser)
+        .expect(res => {
+          expect(res.body).toHaveProperty('data.signup.id')
+          expect(res.body).toHaveProperty('data.signup.email', testUser.email)
         })
-        it('should not create a new user when a password is missing', () => {
-            return signup({
-                ...testUser,
-                password: null
-            })
-                .expect(res => {
-                    expect(res.body).toHaveProperty('errors')
-                    expect(Array.isArray(res.body.errors)).toBe(true)
-                })
-        })
-        it('should not create a new user with the same email', () => {
-            return signup(testUser)
-                .expect(res => {
-                    expect(res.body).toHaveProperty('errors')
-                    expect(Array.isArray(res.body.errors)).toBe(true)
-                })
+        .expect(200)
+    })
+    it('should not create a new user when a password is missing', () => {
+      return signup({
+        ...testUser,
+        password: null
+      })
+        .expect(res => {
+          expect(res.body).toHaveProperty('errors')
+          expect(Array.isArray(res.body.errors)).toBe(true)
         })
     })
-    describe('login', () => {
-        it('should successfully login and return a token', () => {
-            return login(testUser)
-                .expect(res => {
-                    expect(res.body).toHaveProperty('data.login.user.id')
-                    expect(res.body).toHaveProperty('data.login.token')
-                    expect(res.body).toHaveProperty('data.login.tokenExpiration')
-                })
-                .expect(200)
+    it('should not create a new user with the same email', () => {
+      return signup(testUser)
+        .expect(res => {
+          expect(res.body).toHaveProperty('errors')
+          expect(Array.isArray(res.body.errors)).toBe(true)
         })
     })
-    describe('me', () => {
-        let loginResponse = null
-        before(async () => {
-            await login(testUser)
-                .expect(res => {
-                    expect(res.body).toHaveProperty('data.login.user.id')
-                    expect(res.body).toHaveProperty('data.login.token')
-                    expect(res.body).toHaveProperty('data.login.tokenExpiration')
-                    loginResponse = res.body
-                })
-                .expect(200)
+  })
+  describe('login', () => {
+    it('should successfully login and return a token', () => {
+      return login(testUser)
+        .expect(res => {
+          expect(res.body).toHaveProperty('data.login.user.id')
+          expect(res.body).toHaveProperty('data.login.token')
+          expect(res.body).toHaveProperty('data.login.tokenExpiration')
         })
-        it('should not return a profile when not logged in', () => {
-            return request({
-                query: `
+        .expect(200)
+    })
+  })
+  describe('me', () => {
+    let loginResponse = null
+    before(async () => {
+      await login(testUser)
+        .expect(res => {
+          expect(res.body).toHaveProperty('data.login.user.id')
+          expect(res.body).toHaveProperty('data.login.token')
+          expect(res.body).toHaveProperty('data.login.tokenExpiration')
+          loginResponse = res.body
+        })
+        .expect(200)
+    })
+    it('should not return a profile when not logged in', () => {
+      return request({
+        query: `
                   query me {
                     me {
                       id
@@ -79,17 +79,17 @@ describe('auth', () => {
                     }
                   }
                 `
-            })
-                .expect(res => {
-                    expect(res.body).toHaveProperty('errors')
-                    expect(res.body.data.me).toEqual(null)
-                    expect(Array.isArray(res.body.errors)).toBe(true)
-                })
+      })
+        .expect(res => {
+          expect(res.body).toHaveProperty('errors')
+          expect(res.body.data.me).toEqual(null)
+          expect(Array.isArray(res.body.errors)).toBe(true)
         })
-        it('should successfully return the profile from me', () => {
-            const token = loginResponse.data.login.token
-            return request({
-                query: `
+    })
+    it('should successfully return the profile from me', () => {
+      const token = loginResponse.data.login.token
+      return request({
+        query: `
                   query me {
                     me {
                       id
@@ -98,14 +98,14 @@ describe('auth', () => {
                     }
                   }
                 `
-            })
-                .set('x-token', token)
-                .expect(res => {
-                    expect(res.body).toHaveProperty('data.me.id')
-                    expect(res.body).toHaveProperty('data.me.email', testUser.email)
-                    expect(res.body).toHaveProperty('data.me.username', testUser.username)
-                })
-                .expect(200)
+      })
+        .set('x-token', token)
+        .expect(res => {
+          expect(res.body).toHaveProperty('data.me.id')
+          expect(res.body).toHaveProperty('data.me.email', testUser.email)
+          expect(res.body).toHaveProperty('data.me.username', testUser.username)
         })
+        .expect(200)
     })
+  })
 })
