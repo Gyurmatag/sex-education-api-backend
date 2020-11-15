@@ -9,6 +9,7 @@ const typeDefs = gql`
     createCharacter(
       name: String!
       gender: String!
+      imageUrl: String!
       seasons: [ID]!
     ): Character @isAuthenticated
   }
@@ -17,6 +18,7 @@ const typeDefs = gql`
       id: ID!
       name: String!
       gender: String!
+      imageUrl: String!
       seasons: [Season]!
   }
 `

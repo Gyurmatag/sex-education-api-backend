@@ -11,6 +11,10 @@ const characterSchema = new mongoose.Schema({
     enum: ['MALE', 'FEMALE'],
     required: true
   },
+  imageUrl: {
+    type: String,
+    required: true
+  },
   seasons: [
     {
       type: Schema.Types.ObjectId,

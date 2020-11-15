@@ -4,11 +4,13 @@ const Character = require('../../../models/character')
 const createCharacter = async (_, {
   name,
   gender,
+  imageUrl,
   seasons
 }) => {
   const newCharacter = new Character({
     name,
     gender,
+    imageUrl,
     seasons
   })
 
