@@ -17,7 +17,7 @@ const createCharacter = async (_, {
   await newCharacter.populate('seasons').execPopulate()
 
   if (!newCharacter.seasons.length) {
-    throw new ApolloError('Not found')
+    throw new ApolloError('Season not found')
   }
 
   return newCharacter.save()

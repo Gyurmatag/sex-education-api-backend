@@ -15,6 +15,12 @@ const typeDefs = gql`
       password: String!
     ): User
   }
+
+  enum Role {
+      USER
+      ADMIN
+  }
+  
   type AuthData {
     user: User
     token: String!
@@ -25,6 +31,7 @@ const typeDefs = gql`
     email: String!
     username: String!
     password: String!
+    role: Role!
   }
 `
 const resolvers = require('./resolvers')

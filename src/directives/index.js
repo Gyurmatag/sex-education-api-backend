@@ -1,9 +1,13 @@
 const isAuthenticated = require('./is-authenticated')
+const isAuthorized = require('./is-authorized')
+
 module.exports = {
   typeDefs: [
-    isAuthenticated.typeDef
+    isAuthenticated.typeDef,
+    isAuthorized.typeDef
   ],
   schemaDirectives: {
-    isAuthenticated: isAuthenticated.directive
+    isAuthenticated: isAuthenticated.directive,
+    isAuthorized: isAuthorized.directive
   }
 }

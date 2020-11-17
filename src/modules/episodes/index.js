@@ -11,7 +11,7 @@ const typeDefs = gql`
       director: String!
       writer: String!
       season: ID!
-    ): Episode @isAuthenticated
+    ): Episode @isAuthorized(roles: [ADMIN]) @isAuthenticated
   }
   
   type Episode {

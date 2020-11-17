@@ -11,13 +11,18 @@ const typeDefs = gql`
       gender: String!
       imageUrl: String!
       seasons: [ID]!
-    ): Character @isAuthenticated
+    ): Character @isAuthorized(roles: [ADMIN]) @isAuthenticated
+  }
+  
+  enum Gender {
+      MALE
+      FEMALE
   }
   
   type Character {
       id: ID!
       name: String!
-      gender: String!
+      gender: Gender!
       imageUrl: String!
       seasons: [Season]!
   }

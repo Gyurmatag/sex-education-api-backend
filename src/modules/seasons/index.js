@@ -9,7 +9,7 @@ const typeDefs = gql`
         createSeason(
             number: Int!
             releaseDate: DateTime!
-        ): Season @isAuthenticated
+        ): Season @isAuthorized(roles: [ADMIN]) @isAuthenticated
     }
 
     type Season {
