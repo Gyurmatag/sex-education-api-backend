@@ -14,14 +14,17 @@ const login = async (_, { email, password }) => {
   if (!isPasswordValid) {
     throw new AuthenticationError('Incorrect password')
   }
-  const token = tokenUtil.create(user._id)
+  const accessToken = tokenUtil.createAccessToken(user._id)
+  const refreshToken = tokenUtil.createRefreshToken(user._id)
   return {
     user: {
       ...user._doc,
       id: user._id
     },
-    token,
-    tokenExpiration: config.JWT_LIFE_TIME
+    accessToken,
+    accessTokenExpiration: config.ACCESS_JWT_LIFE_TIME,
+    refreshToken,
+    refreshTokenExpiration: config.REFRESH_JWT_LIFE_TIME
   }
 }
 module.exports = login

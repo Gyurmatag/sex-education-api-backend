@@ -24,7 +24,11 @@
     "type": "git",
     "url": "git+https://gyurmatag@bitbucket.org/gyurmaland/sex-education-api-backend.git"
   },
-  "keywords": ["backend", "api", "sexeducation"],
+  "keywords": [
+    "backend",
+    "api",
+    "sexeducation"
+  ],
   "author": "Varga György Márk",
   "license": "ISC",
   "homepage": "https://bitbucket.org/gyurmaland/sex-education-api-backend#readme",
@@ -37,6 +41,8 @@
     "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
+    "ms": "^2.1.2",
+    "redis": "^3.0.2",
     "throng": "^5.0.0"
   },
   "devDependencies": {

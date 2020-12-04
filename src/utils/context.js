@@ -1,6 +1,6 @@
 const tokenUtil = require('./token')
 const User = require('../models/user')
-const TOKEN_HEADER_NAME = 'x-token'
+const TOKEN_HEADER_NAME = 'x-access-token'
 const getUser = async req => {
   if (!req) {
     return null
@@ -10,8 +10,8 @@ const getUser = async req => {
     return null
   }
   try {
-    const decodedToken = await tokenUtil.getDecodedToken(tokenHeader)
-    return await User.findById(decodedToken.userId)
+    const decodedAccessToken = await tokenUtil.getDecodedAccessToken(tokenHeader)
+    return await User.findById(decodedAccessToken.userId)
   } catch (error) {
     return null
   }

@@ -50,8 +50,8 @@ describe('auth', () => {
       return login(testUser)
         .expect(res => {
           expect(res.body).toHaveProperty('data.login.user.id')
-          expect(res.body).toHaveProperty('data.login.token')
-          expect(res.body).toHaveProperty('data.login.tokenExpiration')
+          expect(res.body).toHaveProperty('data.login.accessToken')
+          expect(res.body).toHaveProperty('data.login.accessTokenExpiration')
         })
         .expect(200)
     })
@@ -62,8 +62,8 @@ describe('auth', () => {
       await login(testUser)
         .expect(res => {
           expect(res.body).toHaveProperty('data.login.user.id')
-          expect(res.body).toHaveProperty('data.login.token')
-          expect(res.body).toHaveProperty('data.login.tokenExpiration')
+          expect(res.body).toHaveProperty('data.login.accessToken')
+          expect(res.body).toHaveProperty('data.login.accessTokenExpiration')
           loginResponse = res.body
         })
         .expect(200)
@@ -87,7 +87,7 @@ describe('auth', () => {
         })
     })
     it('should successfully return the profile from me', () => {
-      const token = loginResponse.data.login.token
+      const token = loginResponse.data.login.accessToken
       return request({
         query: `
                   query me {
@@ -99,7 +99,7 @@ describe('auth', () => {
                   }
                 `
       })
-        .set('x-token', token)
+        .set('x-access-token', token)
         .expect(res => {
           expect(res.body).toHaveProperty('data.me.id')
           expect(res.body).toHaveProperty('data.me.email', testUser.email)

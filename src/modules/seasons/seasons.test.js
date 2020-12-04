@@ -36,9 +36,9 @@ describe('seasons', () => {
         .expect(200)
     })
     it('should create a new season', () => {
-      const token = loginResponse.data.login.token
+      const token = loginResponse.data.login.accessToken
       return createSeason(testSeason)
-        .set('x-token', token)
+        .set('x-access-token', token)
         .expect(res => {
           expect(res.body).toHaveProperty('data.createSeason.id')
           expect(res.body).toHaveProperty('data.createSeason.number')

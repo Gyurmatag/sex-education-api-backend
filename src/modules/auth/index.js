@@ -14,18 +14,27 @@ const typeDefs = gql`
       username: String!,
       password: String!
     ): User
+    refreshAccessToken(
+      refreshToken: String!
+    ): AuthData
+    logout(
+      refreshToken: String!
+    ): User
   }
 
   enum Role {
-      USER
-      ADMIN
+    USER
+    ADMIN
   }
   
   type AuthData {
     user: User
-    token: String!
-    tokenExpiration: String!
+    accessToken: String!
+    accessTokenExpiration: String!
+    refreshToken: String!
+    refreshTokenExpiration: String!
   }
+  
   type User {
     id: ID!
     email: String!

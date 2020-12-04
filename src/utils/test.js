@@ -17,8 +17,8 @@ const login = ({ email, password }, returnValues = `{
     user {
       id
     }
-    token
-    tokenExpiration
+    accessToken
+    accessTokenExpiration
 }`) => {
   return graphQLRequest({
     query: `
