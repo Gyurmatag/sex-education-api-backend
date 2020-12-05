@@ -10,10 +10,9 @@ class Redis {
     if (this.connected) {
       return this.client
     } else {
-      const redisURL = this.url
-      this.client = redis.createClient(redisURL.port, redisURL.hostname, { no_ready_check: true })
+      this.client = redis.createClient(this.url.port, this.url.hostname, { no_ready_check: true })
       if (process.env.NODE_ENV !== 'development') {
-        this.client.auth(redisURL.auth.split(':')[1])
+        this.client.auth(this.url.password.split(':')[1])
       }
       this.connected = true
       return this.client
