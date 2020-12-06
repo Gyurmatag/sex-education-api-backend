@@ -2,12 +2,12 @@ const { AuthenticationError } = require('apollo-server-express')
 const tokenUtil = require('../../../utils/token')
 const User = require('../../../models/user')
 const config = require('../../../config')
-const refreshAccessToken = async (_, { refreshTokenInput }) => {
+const refreshAccessToken = async (_, { availableRefreshToken }) => {
   try {
-    const decodedRefreshToken = await tokenUtil.getDecodedRefreshToken(refreshTokenInput)
+    const decodedRefreshToken = await tokenUtil.getDecodedRefreshToken(availableRefreshToken)
     const user = await User.findById(decodedRefreshToken.userId)
-    const accessToken = tokenUtil.createAccessToken(user._id)
-    const refreshToken = tokenUtil.createRefreshToken(user._id)
+    const accessToken = await tokenUtil.createAccessToken(user._id)
+    const refreshToken = await tokenUtil.createRefreshToken(user._id)
     return {
       user,
       accessToken,

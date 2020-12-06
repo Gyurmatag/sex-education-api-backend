@@ -15,7 +15,7 @@ const typeDefs = gql`
       password: String!
     ): User
     refreshAccessToken(
-      refreshToken: String!
+      availableRefreshToken: String!
     ): AuthData
     logout(
       refreshToken: String!
