@@ -7,6 +7,7 @@ const typeDefs = gql`
   
    extend type Mutation {
     createEpisode(
+      number: Int!
       title: String!
       director: String!
       writer: String!
@@ -16,6 +17,7 @@ const typeDefs = gql`
   
   type Episode {
     id: ID!
+    number: Int!
     title: String!
     director: String!
     writer: String!

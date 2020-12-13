@@ -2,12 +2,14 @@ const { ApolloError } = require('apollo-server-express')
 const Episode = require('../../../models/episode')
 
 const createEpisode = async (_, {
+  number,
   title,
   director,
   writer,
   season
 }) => {
   const newEpisode = new Episode({
+    number,
     title,
     director,
     writer,
