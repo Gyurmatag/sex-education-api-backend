@@ -11,6 +11,10 @@ const typeDefs = gql`
     ): Quote @isAuthenticated
   }
   
+  extend type Subscription {
+    quoteCreated: Quote
+  }
+  
   type Quote {
       id: ID!
       text: String!

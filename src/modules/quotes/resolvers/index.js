@@ -1,5 +1,6 @@
 const quotes = require('./quotes')
 const createQuote = require('./create-quote')
+const quoteCreated = require('./quote-created')
 
 const resolvers = {
   Query: {
@@ -7,6 +8,9 @@ const resolvers = {
   },
   Mutation: {
     createQuote
+  },
+  Subscription: {
+    quoteCreated
   }
 }
 

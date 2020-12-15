@@ -1,4 +1,5 @@
 const { ApolloError } = require('apollo-server-express')
+const pubsub = require('../../../utils/init-pubsub')
 const Quote = require('../../../models/quote')
 
 const createQuote = async (_, {
@@ -16,7 +17,11 @@ const createQuote = async (_, {
     throw new ApolloError('Character not found')
   }
 
-  return newQuote.save()
+  await newQuote.save()
+
+  await pubsub.publish('QUOTE_CREATED', { quoteCreated: newQuote })
+
+  return newQuote
 }
 
 module.exports = createQuote
