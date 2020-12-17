@@ -2,7 +2,7 @@ const { gql } = require('apollo-server-express')
 const typeDefs = gql`
   extend type Query {
     character(id: ID!): Character
-    characters(skip: Int, limit: Int): [Character]
+    characters(skip: Int, limit: Int, characterFilters: CharacterFilters): [Character]
   }
   
    extend type Mutation {
@@ -25,6 +25,10 @@ const typeDefs = gql`
       gender: Gender!
       imageUrl: String!
       seasons: [Season]!
+  }
+  
+  input CharacterFilters {
+      name: String
   }
 `
 const resolvers = require('./resolvers')
