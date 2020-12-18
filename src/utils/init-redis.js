@@ -12,8 +12,7 @@ class Redis {
     } else {
       this.client = redis.createClient(this.url.port, this.url.hostname, { no_ready_check: true })
       if (process.env.NODE_ENV !== 'development') {
-        this.client.auth(this.url.toString().split('default:')[1].split('@')[0]
-        )
+        this.client.auth(this.url.toString().split('default:')[1].split('@')[0])
       }
       this.connected = true
       return this.client
