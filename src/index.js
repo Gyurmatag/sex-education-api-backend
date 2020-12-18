@@ -13,7 +13,7 @@ const startServer = async function () {
   try {
     await Promise.all([
       mongoose.connect(config.MONGODB_URI, mongooseOptions),
-      // require('./utils/init-redis').getConnection(),
+      require('./utils/init-redis').getConnection(),
       app.listen(config.PORT)
     ])
     // eslint-disable-next-line no-console
