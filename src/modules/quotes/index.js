@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express')
 const typeDefs = gql`
   extend type Query {
-    quotes(limit: Int): PaginatedItems
+    quotes(limit: Int, next: String): PaginatedItems
   }
   
    extend type Mutation {
