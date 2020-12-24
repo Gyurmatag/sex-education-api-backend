@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express')
 const typeDefs = gql`
   extend type Query {
-    quotes(skip: Int, limit: Int): [Quote]
+    quotes(limit: Int): PaginatedItems
   }
   
    extend type Mutation {
@@ -14,11 +14,15 @@ const typeDefs = gql`
   extend type Subscription {
     quoteCreated: Quote
   }
+
+  extend type PaginatedItems {
+    results: [Quote]!
+  }
   
   type Quote {
-      id: ID!
-      text: String!
-      character: Character!
+    _id: ID!
+    text: String!
+    character: Character!
   }
 `
 const resolvers = require('./resolvers')

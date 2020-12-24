@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const MongoPaging = require('mongo-cursor-pagination')
 const Schema = mongoose.Schema
 
 const quoteSchema = new mongoose.Schema({
@@ -12,5 +13,6 @@ const quoteSchema = new mongoose.Schema({
     required: true
   }
 })
+quoteSchema.plugin(MongoPaging.mongoosePlugin)
 const Quote = mongoose.model('Quote', quoteSchema)
 module.exports = Quote

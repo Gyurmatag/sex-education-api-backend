@@ -5,9 +5,16 @@ const typeDefs = gql`
   }
   
   type DocumentsCount {
-      charactersCount: Int!
-      episodesCount: Int!
-      seasonsCount: Int!
+    charactersCount: Int!
+    episodesCount: Int!
+    seasonsCount: Int!
+  }
+  
+  type PaginatedItems {
+    previous: String!
+    hasPrevious: Boolean!
+    next: String!
+    hasNext: Boolean!    
   }
 `
 const resolvers = require('./resolvers')

@@ -1,8 +1,7 @@
 const Quote = require('../../../models/quote')
 
-const quotes = async (_, { skip, limit }) => {
-  return Quote
-    .find().skip(skip).limit(limit).populate('character')
+const quotes = async (_, { limit }) => {
+  return Quote.paginate({ limit: limit })
 }
 
 module.exports = quotes
